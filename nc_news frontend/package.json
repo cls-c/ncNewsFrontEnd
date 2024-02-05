@@ -1,5 +1,5 @@
 {
-  "name": "nc-news-frontend",
+  "name": "nc_news_frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.6.7",
-    "boostrap": "^2.0.0",
     "bootstrap": "^5.3.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
