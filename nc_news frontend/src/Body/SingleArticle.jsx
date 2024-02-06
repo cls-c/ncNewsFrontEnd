@@ -5,20 +5,24 @@ import { fetchArticleById } from "../util/api";
 import { Button, Card, Container } from "react-bootstrap";
 import Kudos from "../Components/Kudos";
 import CommentCount from "../Components/CommentCount";
+import CommentSection from "./CommentSection";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function SingleArticle() {
   const { articleId } = useParams();
-  const [SingleArticleFeed, setSingleArticleFeed] = useState('');
-  const { selectedArticleId, setSelectedArticleId } = useContext(userContext);
+  const [SingleArticleFeed, setSingleArticleFeed] = useState("");
+  const { isLoading, setSelectedArticleId, setIsLoading } =
+    useContext(userContext);
   useEffect(() => {
     fetchAndUpdateArticleFeed(articleId);
   }, []);
 
   function fetchAndUpdateArticleFeed() {
+    setIsLoading(true);
     setSelectedArticleId(articleId);
     return fetchArticleById(articleId).then(({ data: { article } }) => {
-        console.log(article[0],'<--article0')
       setSingleArticleFeed(article[0]);
+      setIsLoading(false);
     });
   }
   const {
@@ -32,22 +36,31 @@ export default function SingleArticle() {
     topic,
     votes,
   } = SingleArticleFeed;
-  let currentDate = new Date (created_at)
-  return (
-    <> <Container>
-        <Card style={{ width: "75%" , height:"40%"}}>
-        <Card.Img variant="top" src={article_img_url} />
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Subtitle>By {author} - Created at: {currentDate.toDateString()} </Card.Subtitle>
-          <Card.Text>
-            {body}
-          </Card.Text>
-          <Kudos votes={votes}/>
-          <CommentCount comment_count={comment_count}/>
-        </Card.Body>
-      </Card>
-      </Container>
-    </>
-  );
+  let currentDate = new Date(created_at);
+  let returnBody;
+  {
+    isLoading
+      ? (returnBody = <LoadingSpinner />)
+      : (returnBody = (
+          <>
+            {" "}
+            <Container>
+              <Card style={{ width: "75%", height: "40%" }}>
+                <Card.Img variant="top" src={article_img_url} />
+                <Card.Body>
+                  <Card.Title>{title}</Card.Title>
+                  <Card.Subtitle>
+                    By {author} - Created at: {currentDate.toDateString()}{" "}
+                  </Card.Subtitle>
+                  <Card.Text>{body}</Card.Text>
+                  <Kudos votes={votes} />
+                  <CommentCount comment_count={comment_count} />
+                </Card.Body>
+              </Card>
+              <CommentSection />
+            </Container>
+          </>
+        ));
+  }
+  return returnBody;
 }

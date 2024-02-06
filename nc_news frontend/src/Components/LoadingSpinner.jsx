@@ -1,7 +1,10 @@
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
-function BorderExample() {
-  return <Spinner animation="border" />;
+export default function LoadingSpinner() {
+  return (
+    <>
+      <Spinner animation="border" />
+      <h1>Loading ...</h1>
+    </>
+  );
 }
-
-export default BorderExample; 

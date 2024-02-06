@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useContext } from "react";
+import { userContext } from "../contexts/userContext";
+
 
 const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",

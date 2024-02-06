@@ -21,7 +21,9 @@ export const UserContextProvider = ({ children }) => {
         avatar,
         setAvatar,
         selectedArticleId,
-        setSelectedArticleId
+        setSelectedArticleId,
+        isLoading,
+        setIsLoading
       }}
     >
       {children}
