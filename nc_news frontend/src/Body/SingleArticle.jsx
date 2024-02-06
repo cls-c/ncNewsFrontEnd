@@ -21,7 +21,6 @@ export default function SingleArticle() {
       setSingleArticleFeed(article[0]);
     });
   }
-  console.log(SingleArticleFeed, "<--single article Feed");
   const {
     author,
     title,
@@ -34,7 +33,6 @@ export default function SingleArticle() {
     votes,
   } = SingleArticleFeed;
   let currentDate = new Date (created_at)
-  console.log(currentDate.toDateString())
   return (
     <> <Container>
         <Card style={{ width: "75%" , height:"40%"}}>
