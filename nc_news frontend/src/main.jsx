@@ -1,14 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { UserContextProvider } from './contexts/userContext.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { UserContextProvider } from "./contexts/userContext.jsx";
+import { BrowserRouter } from "react-router-dom";
 
-export const root = ReactDOM.createRoot(document.getElementById('root'));
+export const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <UserContextProvider>
-    <App />
+  <BrowserRouter>
+    <UserContextProvider>
+      <App />
     </UserContextProvider>
+  </BrowserRouter>
 );
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,4 +19,3 @@ root.render(
 //     <App />
 //   </React.StrictMode>,
 // )
-

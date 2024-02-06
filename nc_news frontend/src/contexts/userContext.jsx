@@ -7,6 +7,9 @@ export const UserContextProvider = ({ children }) => {
   const [username, setUsername] = useState("default");
   const [avatar, setAvatar] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+
 
   return (
     <userContext.Provider

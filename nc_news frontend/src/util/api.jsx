@@ -7,3 +7,8 @@ const ncMarketPlace = axios.create({
 export const fetchArticles = (category = "") => {
   return ncMarketPlace.get(`/articles`);
 };
+
+
+export const fetchArticleById = (articleId) => {
+  return ncMarketPlace.get(`/articles/${articleId}`);
+};
