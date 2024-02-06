@@ -15,3 +15,7 @@ export const fetchArticles = (category = "") => {
 export const fetchArticleById = (articleId) => {
   return ncMarketPlace.get(`/articles/${articleId}`);
 };
+
+export const fetchCommentByArticleId = (articleId) =>{
+  return ncMarketPlace.get(`/comments/${articleId}/comments`)
+}
