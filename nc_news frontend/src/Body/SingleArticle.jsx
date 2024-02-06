@@ -37,7 +37,7 @@ export default function SingleArticle() {
   console.log(currentDate.toDateString())
   return (
     <> <Container>
-        <Card>
+        <Card style={{ width: "75%" , height:"40%"}}>
         <Card.Img variant="top" src={article_img_url} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
