@@ -1,13 +1,16 @@
-import React,{ useState } from 'react'
-import './App.css'
+import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import Header from './Header/Header'
+import ArticleFeed from './Body/ArticleFeed';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-
+    <Header/>
+    <ArticleFeed />
     </>
   )
 }

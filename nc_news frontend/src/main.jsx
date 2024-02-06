@@ -2,9 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { UserContextProvider } from './contexts/userContext.jsx'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+export const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <UserContextProvider>
     <App />
-  </React.StrictMode>,
-)
+    </UserContextProvider>
+);
+
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+// )
+
