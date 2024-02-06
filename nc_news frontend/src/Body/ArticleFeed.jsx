@@ -1,13 +1,15 @@
-import { useContext, useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { userContext } from "../contexts/userContext";
 import { fetchArticles } from "../util/api";
 import ArticleCard from "../Components/Article";
 
+
+
 export default function ArticleFeed() {
-  const { articleFeed, setArticleFeed } = useContext(userContext);
+  const [articleFeed,setArticleFeed] = useState([]);
 
   function fetchAndUpdateArticleFeed() {
     return fetchArticles().then(({ data: { article } }) => {
@@ -18,8 +20,10 @@ export default function ArticleFeed() {
     fetchAndUpdateArticleFeed();
   }, []);
   return (
-    <Container>
-      <ArticleCard />
+    <Container fluid className="mt-5"> 
+        <Row className="justify-content-center"> 
+      <ArticleCard articleFeed={articleFeed} />
+      </Row>
     </Container>
   );
 }
