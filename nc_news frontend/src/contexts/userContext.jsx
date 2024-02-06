@@ -7,6 +7,7 @@ export const UserContextProvider = ({ children }) => {
   const [username, setUsername] = useState("default");
   const [avatar, setAvatar] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState();
+  const [articleFeed,setArticleFeed] = useState([]);
 
   return (
     <userContext.Provider
@@ -19,6 +20,7 @@ export const UserContextProvider = ({ children }) => {
         setAvatar,
         selectedArticleId,
         setSelectedArticleId,
+        articleFeed,setArticleFeed
       }}
     >
       {children}
