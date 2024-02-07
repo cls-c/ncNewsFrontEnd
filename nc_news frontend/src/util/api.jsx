@@ -21,3 +21,14 @@ export const fetchCommentByArticleId = (articleId) =>{
     return comments
   })
 }
+
+export const updateCommentVote = (commentId,changeVote) => {
+  return ncMarketPlace.patch(`/comments/${commentId}`,{
+    "inc_votes":changeVote
+  })
+}
+export const updateArticleVote = (commentId,changeVote) => {
+  return ncMarketPlace.patch(`/comments/${commentId}`,{
+    "inc_votes":changeVote
+  })
+}

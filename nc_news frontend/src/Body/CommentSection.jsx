@@ -1,4 +1,4 @@
-import { Container, Row } from "react-bootstrap";
+import { Card, CardBody, Container, Row } from "react-bootstrap";
 import CommentCard from "../Components/Comment";
 import { useContext, useEffect, useState } from "react";
 import { fetchCommentByArticleId } from "../util/api";
@@ -25,9 +25,9 @@ export default function CommentSection() {
       <Container>
         <Row className="justify-content-centre">
           Comment Section
-          {commentArr.map((comment, index) => {
+          {commentArr.length>0 ? (<>          {commentArr.map((comment, index) => {
             return <CommentCard comment={comment} key={`comment ${index}`} />;
-          })}
+          })}</>): <section><Container ><Card><CardBody>No comments yet...</CardBody></Card></Container></section>}
         </Row>
       </Container>
     </>
