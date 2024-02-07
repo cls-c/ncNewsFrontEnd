@@ -17,5 +17,7 @@ export const fetchArticleById = (articleId) => {
 };
 
 export const fetchCommentByArticleId = (articleId) =>{
-  return ncMarketPlace.get(`/comments/${articleId}/comments`)
+  return ncMarketPlace.get(`/articles/${articleId}/comments`).then(({ data: { comments } })=>{
+    return comments
+  })
 }

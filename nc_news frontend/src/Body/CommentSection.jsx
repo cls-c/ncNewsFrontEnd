@@ -1,28 +1,34 @@
-import { Container,Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import CommentCard from "../Components/Comment";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchCommentByArticleId } from "../util/api";
+import { userContext } from "../contexts/userContext";
 
-export default function CommentSection (){
-    const [commentArr, setCommentArr] =useState([])
-    
-    function fetchAndUpdateComments(){
-        fetchCommentByArticleId.then((data)=>{
-            console.log('imdone')
-            console.log(data)
-            setCommentArr(data)
-        })
-    }
+export default function CommentSection() {
+  const [commentArr, setCommentArr] = useState([]);
+  const { selectedArticleId } = useContext(userContext);
 
-    useEffect(()=>{fetchAndUpdateComments()},[])
-    return (
-        <>
-        <Container>
+  function fetchAndUpdateComments() {
+    fetchCommentByArticleId(selectedArticleId).then(
+      (data) => {
+        setCommentArr(data);
+      }
+    );
+  }
+
+  useEffect(() => {
+    fetchAndUpdateComments();
+  }, []);
+  return (
+    <>
+      <Container>
         <Row className="justify-content-centre">
-            Comment Section
-            <CommentCard></CommentCard>
+          Comment Section
+          {commentArr.map((comment,index)=>{
+            return <CommentCard comment={comment} key={`comment ${index}`}/>
+          })}
         </Row>
-        </Container>
-        </>
-    )
+      </Container>
+    </>
+  );
 }
