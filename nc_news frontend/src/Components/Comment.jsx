@@ -18,7 +18,7 @@ export default function CommentCard({comment}) {
                   {body}
                 </p>
                 <div className="small d-flex justify-content-start">
-                    <Kudos votes={votes}/>
+                    <Kudos votes={votes} id={comment_id} type={'comment'}/>
                   <a href="#!" className="d-flex align-items-center me-3">
 
                     <p className="mb-0">Share</p>

@@ -25,10 +25,16 @@ export const fetchCommentByArticleId = (articleId) =>{
 export const updateCommentVote = (commentId,changeVote) => {
   return ncMarketPlace.patch(`/comments/${commentId}`,{
     "inc_votes":changeVote
+  }).catch(({message})=>{
+    console.log(message,'in api')
+    window.alert(`${message}. Please try again later`);
   })
 }
 export const updateArticleVote = (commentId,changeVote) => {
   return ncMarketPlace.patch(`/articles/${commentId}`,{
     "inc_votes":changeVote
+  }).catch(({message})=>{
+    console.log(message,'in api')
+    window.alert(`${message}. Please try again later`);
   })
 }

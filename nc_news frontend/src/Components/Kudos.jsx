@@ -1,16 +1,26 @@
 import { Button } from "react-bootstrap";
-import { updateArticleVote } from "../util/api";
+import { updateArticleVote, updateCommentVote } from "../util/api";
 import { useEffect, useState } from "react";
 
-export default function Kudos({votes, id}) {
+export default function Kudos({votes, id,type}) {
   const [visibleVote, setVisibleVote] = useState(votes)
+
   function handleClick(event){
     event.preventDefault();
     const id = event.target.value
     const newVoteChange = event.target.getAttribute("data-value")
-    updateArticleVote(id,newVoteChange)
-    setVisibleVote(visibleVote+Number(newVoteChange))
+    if (type === 'article'){
+      updateArticleVote(id,newVoteChange)
+      setVisibleVote(visibleVote+Number(newVoteChange)).catch((err)=>{
+        console.log(err)
+      })
+    } else if (type === 'comment'){
+      updateCommentVote(id,newVoteChange)
+      setVisibleVote(visibleVote+Number(newVoteChange))
+    }
   }
+
+
   useEffect(()=>{},[visibleVote])
 
   return (
