@@ -53,7 +53,7 @@ export default function SingleArticle() {
                     By {author} - Created at: {currentDate.toDateString()}{" "}
                   </Card.Subtitle>
                   <Card.Text>{body}</Card.Text>
-                  <Kudos votes={votes} />
+                  <Kudos votes={votes} id={articleId} />
                   <CommentCount comment_count={comment_count} />
                 </Card.Body>
               </Card>

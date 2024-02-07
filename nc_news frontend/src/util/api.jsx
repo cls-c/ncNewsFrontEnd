@@ -28,7 +28,7 @@ export const updateCommentVote = (commentId,changeVote) => {
   })
 }
 export const updateArticleVote = (commentId,changeVote) => {
-  return ncMarketPlace.patch(`/comments/${commentId}`,{
+  return ncMarketPlace.patch(`/articles/${commentId}`,{
     "inc_votes":changeVote
   })
 }
