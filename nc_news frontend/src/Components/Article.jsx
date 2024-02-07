@@ -36,7 +36,7 @@ export default function ArticleCard({ articleFeed }) {
                     <a href={`/article/${article_id}`}>
                       <Card.Title>{title}</Card.Title>
                     </a>
-                    <Kudos votes={votes} />
+                    <Kudos votes={votes} id={article_id} type={'article'}/>
                     <CommentCount comment_count={comment_count} />
                   </Card.Body>
                 </Card>
