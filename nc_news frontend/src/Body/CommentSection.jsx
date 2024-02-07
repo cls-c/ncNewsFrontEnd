@@ -11,10 +11,8 @@ export default function CommentSection() {
     useContext(userContext);
 
   function fetchAndUpdateComments() {
-    setIsLoading(true);
     fetchCommentByArticleId(selectedArticleId).then((data) => {
       setCommentArr(data);
-      setIsLoading(false);
     });
   }
 
@@ -22,23 +20,17 @@ export default function CommentSection() {
     fetchAndUpdateComments();
   }, []);
   let returnBody;
-  {
-    isLoading
-      ? (returnBody = <LoadingSpinner />)
-      : (returnBody = (
-          <>
-            <Container>
-              <Row className="justify-content-centre">
-                Comment Section
-                {commentArr.map((comment, index) => {
-                  return (
-                    <CommentCard comment={comment} key={`comment ${index}`} />
-                  );
-                })}
-              </Row>
-            </Container>
-          </>
-        ));
-  }
+  returnBody = (
+    <>
+      <Container>
+        <Row className="justify-content-centre">
+          Comment Section
+          {commentArr.map((comment, index) => {
+            return <CommentCard comment={comment} key={`comment ${index}`} />;
+          })}
+        </Row>
+      </Container>
+    </>
+  );
   return returnBody;
 }
