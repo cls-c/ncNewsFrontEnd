@@ -43,19 +43,21 @@ export const updateArticleVote = (commentId, changeVote) => {
     });
 };
 
-export const addNewComment = (articleId, username, newComment) => {
+export const addNewComment = (articleId, username, newComment, setHasError) => {
   return ncMarketPlace
-    .post(`/articles/${articleId}/comments`, {
+    .post(`/articlesss/${articleId}/comments`, {
       "username": username,
       "body": newComment,
     })
     .then((data) => {
       window.alert('Your comment has been posted!')
+      setHasError(false)
     })
     .catch(({ message }) => {
       window.alert(
         `${message}. Unable to post your comment. Please try again later`
       );
+      setHasError(true)
     });
 };
 

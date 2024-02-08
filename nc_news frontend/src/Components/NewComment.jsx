@@ -8,29 +8,39 @@ export default function NewCommentCard({ commentState, setCommentState }) {
   const { avatar } = useContext(userContext);
   const { username, selectedArticleId } = useContext(userContext);
   const [isCommentPosted, setIsCommentPosted] = useState(false);
+  const [hasError, setHasError] = useState(false);
   function handleNewCommentSubmit(event) {
     event.preventDefault();
-    setIsCommentPosted(true)
+    setIsCommentPosted(true);
     newComment.length > 0
-      ? addNewComment(selectedArticleId, username, newComment).then(() => {
+      ? addNewComment(
+          selectedArticleId,
+          username,
+          newComment,
+          setHasError
+        ).then(() => {
           setIsCommentPosted(false);
-          setCommentState(!commentState);
+          hasError
+            ? null
+            : () => {
+                event.target.reset();
+                setCommentState(!commentState);
+              };
         })
       : null;
-    event.target.reset();
   }
   function handleNewCommentInput(event) {
     setNewComment(event.target.value);
   }
-  function disabledCondition(){
-    if (newComment.length > 0){
-        return true
-    }else if (!isCommentPosted){
-        return true
+  function disabledCondition() {
+    if (newComment.length > 0) {
+      return true;
+    } else if (!isCommentPosted) {
+      return true;
     } else {
-        return false
+      return false;
     }
-    }
+  }
 
   return (
     <>
@@ -59,9 +69,7 @@ export default function NewCommentCard({ commentState, setCommentState }) {
                   />
                   <Button
                     type="submit"
-                    disabled={
-                      disabledCondition()? false : true
-                    }
+                    disabled={disabledCondition() ? false : true}
                   >
                     Post Commment
                   </Button>
