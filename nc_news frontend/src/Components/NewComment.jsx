@@ -3,22 +3,36 @@ import { Button, Card, Form, FormControl, FormLabel } from "react-bootstrap";
 import { userContext } from "../contexts/userContext";
 import { addNewComment } from "../util/api";
 
-export default function NewCommentCard() {
-    const [newComment, setNewComment] = useState("")
+export default function NewCommentCard({ commentState, setCommentState }) {
+  const [newComment, setNewComment] = useState("");
   const { avatar } = useContext(userContext);
-  const {username, selectedArticleId} = useContext(userContext)
-  function handleNewCommentSubmit(event){
+  const { username, selectedArticleId } = useContext(userContext);
+  const [isCommentPosted, setIsCommentPosted] = useState(false);
+  function handleNewCommentSubmit(event) {
     event.preventDefault();
-    event.target.reset()
-    console.log()
-    newComment.length>0 ? addNewComment(selectedArticleId,username,newComment):null
+    setIsCommentPosted(true)
+    newComment.length > 0
+      ? addNewComment(selectedArticleId, username, newComment).then(() => {
+          setIsCommentPosted(false);
+          setCommentState(!commentState);
+          console.log(isCommentPosted)
+        })
+      : null;
+    event.target.reset();
   }
-  function handleNewCommentInput(event){
-    setNewComment(event.target.value)
+  function handleNewCommentInput(event) {
+    setNewComment(event.target.value);
   }
-  function buttonDisabledCondition(){
+  function disabledCondition(){
+    if (newComment.length > 0){
+        return true
+    }else if (!isCommentPosted){
+        return true
+    } else {
+        return false
+    }
+    }
 
-  }
   return (
     <>
       <section>
@@ -44,22 +58,21 @@ export default function NewCommentCard() {
                     placeholder="Enter your comment here..."
                     onChange={handleNewCommentInput}
                   />
-            <Button type="submit" disabled={newComment.length>0? false:true}>Post Commment</Button>
+                  <Button
+                    type="submit"
+                    disabled={
+                      disabledCondition()? false : true
+                    }
+                  >
+                    Post Commment
+                  </Button>
                 </Form.Group>
               </Form>
             </div>
           </div>
-          <div className="align-self-end">
-          </div>
+          <div className="align-self-end"></div>
         </Card>
       </section>
     </>
   );
 }
-
-// <div class="form-outline w-100">
-// <textarea class="form-control" id="textAreaExample" rows="4"
-//   style="background: #fff;"></textarea>
-// <label class="form-label" for="textAreaExample">Message</label>
-// </div>
-// </div>
