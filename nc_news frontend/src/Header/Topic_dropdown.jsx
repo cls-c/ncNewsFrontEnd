@@ -1,18 +1,26 @@
+import { useEffect, useState } from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { GetAllTopic } from "../util/api";
 
 export default function Topic_dropdown() {
+  const [topicArr, setTopicArr] = useState([]);
+  useEffect(() => {
+    GetAllTopic().then((data) => setTopicArr(data));
+  }, []);
+  console.log(topicArr)
   return (
     <>
       <NavDropdown title="Topic" id="collapsible-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
+        {topicArr.map(({ slug, description }) => {
+          console.log(slug, description);
+          return (
+            <>
+              <NavDropdown.Item href={`/topic/${slug}`} key={`topic_${slug}`} title={description}>
+                {slug}
+              </NavDropdown.Item>
+            </>
+          );
+        })}
       </NavDropdown>
     </>
   );

@@ -7,8 +7,14 @@ const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",
 });
 
-export const fetchArticles = (category = "") => {
-  return ncMarketPlace.get(`/articles`);
+export const fetchArticles = (topic) => {
+  return ncMarketPlace.get(`/articles`,
+  {
+    params:{
+      topic:topic
+    }
+  })
+
 };
 
 export const fetchArticleById = (articleId) => {
@@ -73,4 +79,12 @@ export const DeleteComment = (commentId,setIsLoading) =>{
       `${message}. Unable to delete your comment. Please try again later`
     );
   });
+}
+
+export const GetAllTopic = () => {
+  return ncMarketPlace.get('/topics')
+  .then(({data:{topic}})=>{
+    console.log(topic)
+    return topic
+  })
 }
