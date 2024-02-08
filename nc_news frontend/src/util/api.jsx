@@ -45,7 +45,7 @@ export const updateArticleVote = (commentId, changeVote) => {
 
 export const addNewComment = (articleId, username, newComment, setHasError) => {
   return ncMarketPlace
-    .post(`/articlesss/${articleId}/comments`, {
+    .post(`/articles/${articleId}/comments`, {
       "username": username,
       "body": newComment,
     })
@@ -61,7 +61,8 @@ export const addNewComment = (articleId, username, newComment, setHasError) => {
     });
 };
 
-export const DeleteComment = (commentId) =>{
+export const DeleteComment = (commentId,setIsLoading) =>{
+  setIsLoading(true)
   return ncMarketPlace
   .delete(`/comments/${commentId}`)
   .then(() => {
