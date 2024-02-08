@@ -6,8 +6,9 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Topic_dropdown from "./Topic_dropdown";
 import { Button } from "react-bootstrap";
 import { userContext } from "../contexts/userContext";
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import LogoutButton from "./LogoutButton";
+import { GetAllTopic } from "../util/api";
 
 export default function Header() {
      const {isLoggedIn, username} = useContext(userContext);

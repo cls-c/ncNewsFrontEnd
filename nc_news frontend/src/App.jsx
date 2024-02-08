@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import SingleArticle from "./Body/SingleArticle";
 import LoadingSpinner from "./Components/LoadingSpinner";
 import { userContext } from "./contexts/userContext";
+import FilteredArticleFeed from "./Body/FilteredArticleFeed.jsx";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<ArticleFeed />} />
           <Route path="/home" element={<ArticleFeed />} />
           <Route path="/article/:articleId" element={<SingleArticle/>} />
+          <Route path="/topic/:topic" element={<FilteredArticleFeed/>} />
         </Routes>
         {/* }  */}
       </div>

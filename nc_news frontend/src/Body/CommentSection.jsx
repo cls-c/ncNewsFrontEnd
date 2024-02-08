@@ -10,6 +10,7 @@ export default function CommentSection() {
   const [commentArr, setCommentArr] = useState([]);
   const { selectedArticleId, isLoading, setIsLoading } =
     useContext(userContext);
+  const [commentState, setCommentState]=useState(false)
 
   function fetchAndUpdateComments() {
     fetchCommentByArticleId(selectedArticleId).then((data) => {
@@ -19,7 +20,7 @@ export default function CommentSection() {
 
   useEffect(() => {
     fetchAndUpdateComments();
-  }, [commentArr]);
+  }, [commentState]);
   let returnBody;
   returnBody = (
     <>
@@ -27,12 +28,12 @@ export default function CommentSection() {
         <Row className="justify-content-centre">
         <h4 className="mb-0">Recent comments</h4>
         <p className="fw-light mb-4 pb-2">Latest Comments section by users</p>
-        <NewCommentCard/>
+        <NewCommentCard commentState={commentState} setCommentState={setCommentState}/>
           {commentArr.length > 0 ? (
             <>
               {commentArr.map((comment, index) => {
                 return (
-                  <CommentCard comment={comment} key={`comment ${index}`} />
+                  <CommentCard comment={comment} commentState={commentState} setCommentState={setCommentState} key={`comment ${index}` } />
                 );
               })}
             </>

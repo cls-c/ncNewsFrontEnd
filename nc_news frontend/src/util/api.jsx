@@ -2,12 +2,19 @@ import axios from "axios";
 import { useContext } from "react";
 import { userContext } from "../contexts/userContext";
 
+
 const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",
 });
 
-export const fetchArticles = (category = "") => {
-  return ncMarketPlace.get(`/articles`);
+export const fetchArticles = (topic) => {
+  return ncMarketPlace.get(`/articles`,
+  {
+    params:{
+      topic:topic
+    }
+  })
+
 };
 
 export const fetchArticleById = (articleId) => {
@@ -42,18 +49,42 @@ export const updateArticleVote = (commentId, changeVote) => {
     });
 };
 
-export const addNewComment = (articleId, username, newComment) => {
+export const addNewComment = (articleId, username, newComment, setHasError) => {
   return ncMarketPlace
     .post(`/articles/${articleId}/comments`, {
       "username": username,
       "body": newComment,
     })
     .then((data) => {
-      console.log(data)
+      window.alert('Your comment has been posted!')
+      setHasError(false)
     })
     .catch(({ message }) => {
       window.alert(
         `${message}. Unable to post your comment. Please try again later`
       );
+      setHasError(true)
     });
 };
+
+export const DeleteComment = (commentId,setIsLoading) =>{
+  setIsLoading(true)
+  return ncMarketPlace
+  .delete(`/comments/${commentId}`)
+  .then(() => {
+    window.alert('Your comment has been deleted!')
+  })
+  .catch(({ message }) => {
+    window.alert(
+      `${message}. Unable to delete your comment. Please try again later`
+    );
+  });
+}
+
+export const GetAllTopic = () => {
+  return ncMarketPlace.get('/topics')
+  .then(({data:{topic}})=>{
+    console.log(topic)
+    return topic
+  })
+}

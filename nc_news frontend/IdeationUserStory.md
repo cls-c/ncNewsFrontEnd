@@ -14,6 +14,7 @@ adv user story:
 - As a user able to update the article. 
 - As a user should be able to see the most popular (topic with the highest amount of post under the topic) first. 
 - Homepage should able to see all availalble articles & also select all topic. 
+- user should only be able to vote once.
 
 UI wireframe: 
 readonly- 
