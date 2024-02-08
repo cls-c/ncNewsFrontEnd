@@ -15,7 +15,6 @@ export default function NewCommentCard({ commentState, setCommentState }) {
       ? addNewComment(selectedArticleId, username, newComment).then(() => {
           setIsCommentPosted(false);
           setCommentState(!commentState);
-          console.log(isCommentPosted)
         })
       : null;
     event.target.reset();

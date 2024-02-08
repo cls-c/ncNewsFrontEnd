@@ -49,7 +49,7 @@ export const addNewComment = (articleId, username, newComment) => {
       "body": newComment,
     })
     .then((data) => {
-      console.log(data)
+      window.alert('Your comment has been posted!')
     })
     .catch(({ message }) => {
       window.alert(
