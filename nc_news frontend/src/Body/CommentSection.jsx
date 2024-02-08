@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { fetchCommentByArticleId } from "../util/api";
 import { userContext } from "../contexts/userContext";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import NewCommentCard from "../Components/NewComment";
 
 export default function CommentSection() {
   const [commentArr, setCommentArr] = useState([]);
@@ -18,16 +19,32 @@ export default function CommentSection() {
 
   useEffect(() => {
     fetchAndUpdateComments();
-  }, []);
+  }, [commentArr]);
   let returnBody;
   returnBody = (
     <>
-      <Container>
+      <Container >
         <Row className="justify-content-centre">
-          Comment Section
-          {commentArr.length>0 ? (<>          {commentArr.map((comment, index) => {
-            return <CommentCard comment={comment} key={`comment ${index}`} />;
-          })}</>): <section><Container ><Card><CardBody>No comments yet...</CardBody></Card></Container></section>}
+        <h4 className="mb-0">Recent comments</h4>
+        <p className="fw-light mb-4 pb-2">Latest Comments section by users</p>
+        <NewCommentCard/>
+          {commentArr.length > 0 ? (
+            <>
+              {commentArr.map((comment, index) => {
+                return (
+                  <CommentCard comment={comment} key={`comment ${index}`} />
+                );
+              })}
+            </>
+          ) : (
+            <section>
+              <Container>
+                <Card>
+                  <CardBody>No comments yet...</CardBody>
+                </Card>
+              </Container>
+            </section>
+          )}
         </Row>
       </Container>
     </>

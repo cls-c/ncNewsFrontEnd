@@ -4,8 +4,8 @@ export const userContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [username, setUsername] = useState("default");
-  const [avatar, setAvatar] = useState("");
+  const [username, setUsername] = useState("tickle122");
+  const [avatar, setAvatar] = useState("https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp");
   const [selectedArticleId, setSelectedArticleId] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
