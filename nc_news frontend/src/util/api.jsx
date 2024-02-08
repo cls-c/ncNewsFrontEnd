@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { userContext } from "../contexts/userContext";
 
+
 const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",
 });
@@ -57,3 +58,16 @@ export const addNewComment = (articleId, username, newComment) => {
       );
     });
 };
+
+export const DeleteComment = (commentId) =>{
+  return ncMarketPlace
+  .delete(`/comments/${commentId}`)
+  .then(() => {
+    window.alert('Your comment has been deleted!')
+  })
+  .catch(({ message }) => {
+    window.alert(
+      `${message}. Unable to delete your comment. Please try again later`
+    );
+  });
+}

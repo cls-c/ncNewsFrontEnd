@@ -33,7 +33,7 @@ export default function CommentSection() {
             <>
               {commentArr.map((comment, index) => {
                 return (
-                  <CommentCard comment={comment} key={`comment ${index}`} />
+                  <CommentCard comment={comment} commentState={commentState} setCommentState={setCommentState} key={`comment ${index}` } />
                 );
               })}
             </>
