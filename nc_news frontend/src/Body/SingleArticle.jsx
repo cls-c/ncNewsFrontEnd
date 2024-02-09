@@ -7,6 +7,7 @@ import Kudos from "../Components/Kudos";
 import CommentCount from "../Components/CommentCount";
 import CommentSection from "./CommentSection";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import ResourceNotFound from "./ResourceNotFound";
 
 export default function SingleArticle() {
   const { articleId } = useParams();
@@ -16,14 +17,21 @@ export default function SingleArticle() {
   useEffect(() => {
     fetchAndUpdateArticleFeed(articleId);
   }, []);
+  const  [hasError, setHasError]  = useState(false);
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
     setSelectedArticleId(articleId);
-    return fetchArticleById(articleId).then(({ data: { article } }) => {
-      setSingleArticleFeed(article[0]);
-      setIsLoading(false);
-    });
+    return fetchArticleById(articleId)
+      .then(({ data: { article } }) => {
+        setSingleArticleFeed(article[0]);
+        setIsLoading(false);
+      })
+      .catch(({ message }) => {
+        console.log(message,"<--");
+        setIsLoading(false);
+        setHasError(true);
+      });
   }
   const {
     author,
@@ -41,9 +49,8 @@ export default function SingleArticle() {
   {
     isLoading
       ? (returnBody = <LoadingSpinner />)
-      : (returnBody = (
+      : (hasError? (returnBody = <ResourceNotFound />): (returnBody = (
           <>
-            {" "}
             <Container>
               <Card style={{ width: "75%", height: "40%" }}>
                 <Card.Img variant="top" src={article_img_url} />
@@ -53,14 +60,14 @@ export default function SingleArticle() {
                     By {author} - Created at: {currentDate.toDateString()}{" "}
                   </Card.Subtitle>
                   <Card.Text>{body}</Card.Text>
-                  <Kudos votes={votes} id={articleId} type={'article'} />
+                  <Kudos votes={votes} id={articleId} type={"article"} />
                   <CommentCount comment_count={comment_count} />
                 </Card.Body>
               </Card>
               <CommentSection />
             </Container>
           </>
-        ));
+        )))
   }
   return returnBody;
 }

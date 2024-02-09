@@ -8,6 +8,7 @@ import ArticleCard from "../Components/Article";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import SortByOrderByFilter from "../Components/SortByOrderByFilter";
+import ResourceNotFound from "./ResourceNotFound";
 
 export default function FilteredArticleFeed() {
   const [articleFeed, setArticleFeed] = useState([]);
@@ -15,6 +16,8 @@ export default function FilteredArticleFeed() {
   const { topic } = useParams();
   const [sortBy, setSortBy] = useState(null);
   const [orderBy, setOrderBy] = useState(null);
+  const  [hasError, setHasError]  = useState(false);
+
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
@@ -24,7 +27,10 @@ export default function FilteredArticleFeed() {
         console.log(location.search, "<--location.search");
         setIsLoading(false);
       }
-    );
+    ).catch((err)=>{
+      setIsLoading(false);
+      setHasError(true);
+    })
   }
   useEffect(() => {
     fetchAndUpdateArticleFeed();
@@ -35,21 +41,21 @@ export default function FilteredArticleFeed() {
   {
     isLoading
       ? (returnBody = <LoadingSpinner />)
-      : (returnBody = (
-          <>
-            <Container fluid className="mt-5">
-              <Row className="justify-content-center">
-                <SortByOrderByFilter
-                  sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  setOrderBy={setOrderBy}
-                />
+      : (hasError? (returnBody= <ResourceNotFound/>):(returnBody = (
+        <>
+          <Container fluid className="mt-5">
+            <Row className="justify-content-center">
+              <SortByOrderByFilter
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                setOrderBy={setOrderBy}
+              />
 
-                <ArticleCard articleFeed={articleFeed} />
-              </Row>
-            </Container>
-          </>
-        ));
+              <ArticleCard articleFeed={articleFeed} />
+            </Row>
+          </Container>
+        </>
+      )));
   }
   return returnBody;
 }
