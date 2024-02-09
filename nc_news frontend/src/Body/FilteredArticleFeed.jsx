@@ -33,8 +33,7 @@ export default function FilteredArticleFeed() {
   }
   useEffect(() => {
     fetchAndUpdateArticleFeed();
-  }, [sortBy,orderBy]);
-
+  }, [sortBy,orderBy,topic]);
   let returnBody = "";
 
   {
