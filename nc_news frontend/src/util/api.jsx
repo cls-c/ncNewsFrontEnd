@@ -7,11 +7,13 @@ const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",
 });
 
-export const fetchArticles = (topic) => {
+export const fetchArticles = (topic,sortBy,OrderBy) => {
   return ncMarketPlace.get(`/articles`,
   {
     params:{
-      topic:topic
+      topic:topic,
+      sort_by:sortBy,
+      order:OrderBy
     }
   })
 

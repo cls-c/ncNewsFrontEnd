@@ -6,10 +6,13 @@ import { userContext } from "../contexts/userContext";
 import { fetchArticles } from "../util/api";
 import ArticleCard from "../Components/Article";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import SortByOrderByFilter from "../Components/SortByOrderByFilter";
 
 export default function ArticleFeed() {
   const [articleFeed, setArticleFeed] = useState([]);
   const { isLoading, setIsLoading } = useContext(userContext);
+  const [sortBy, setSortBy]=useState('');
+  const [orderBy, setOrderBy]=useState('');
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
@@ -30,25 +33,7 @@ export default function ArticleFeed() {
       : (returnBody = (
           <>
             <Container fluid className="mt-5">
-                <div>
-                  <Form>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Sort by</Form.Label>
-                      <Form.Select onChange={e=>{console.log(e.target.value)}}>
-                        <option>Comment Count</option>
-                        <option>Date</option>
-                        <option>Votes</option>
-                      </Form.Select>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Order by</Form.Label>
-                      <Form.Select onChange={e=>{console.log(e.target.value)}}>
-                        <option>Ascending</option>
-                        <option>Descending</option>
-                      </Form.Select>
-                    </Form.Group>
-                  </Form>
-                </div>
+              <SortByOrderByFilter sortBy={sortBy} setSortBy={setSortBy} setOrderBy={setOrderBy}/>
               <Row className="justify-content-center">
                 <ArticleCard articleFeed={articleFeed} />
               </Row>

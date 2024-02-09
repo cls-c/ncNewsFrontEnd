@@ -12,12 +12,12 @@ export default function FilteredArticleFeed() {
   const [articleFeed, setArticleFeed] = useState([]);
   const { isLoading, setIsLoading } = useContext(userContext);
   const { topic } = useParams();
-  const navigate = useNavigate();
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
     return fetchArticles(topic).then(({ data: { article } }) => {
       setArticleFeed(article);
+      console.log(location.search,"<--location.search")
       setIsLoading(false);
     });
   }
