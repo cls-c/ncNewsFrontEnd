@@ -21,10 +21,9 @@ export default function FilteredArticleFeed() {
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
-    return FetchArticles(null, sortBy, orderBy).then(
+    return FetchArticles(topic, sortBy, orderBy).then(
       ({ data: { article } }) => {
         setArticleFeed(article);
-        console.log(location.search, "<--location.search");
         setIsLoading(false);
       }
     ).catch((err)=>{
@@ -34,8 +33,7 @@ export default function FilteredArticleFeed() {
   }
   useEffect(() => {
     fetchAndUpdateArticleFeed();
-  }, [sortBy,orderBy]);
-
+  }, [sortBy,orderBy,topic]);
   let returnBody = "";
 
   {
