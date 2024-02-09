@@ -8,22 +8,21 @@ import SingleArticle from "./Body/SingleArticle";
 import LoadingSpinner from "./Components/LoadingSpinner";
 import { userContext } from "./contexts/userContext";
 import FilteredArticleFeed from "./Body/FilteredArticleFeed.jsx";
-
+import ResourceNotFound from "./Body/ResourceNotFound.jsx";
 
 function App() {
-  const {isLoading} = useContext(userContext)
+  const { isLoading } = useContext(userContext);
   return (
     <>
       <div className="App">
         <Header />
-        {/* {isLoading? <LoadingSpinner/> :  */}
         <Routes>
-        <Route path="/" element={<ArticleFeed />} />
+          <Route path="/" element={<ArticleFeed />} />
           <Route path="/home" element={<ArticleFeed />} />
-          <Route path="/article/:articleId" element={<SingleArticle/>} />
-          <Route path="/topic/:topic" element={<FilteredArticleFeed/>} />
+          <Route path="/article/:articleId" element={<SingleArticle />} />
+          <Route path="/topic/:topic" element={<FilteredArticleFeed />} />
+          <Route path="*" element={<ResourceNotFound />}></Route>
         </Routes>
-        {/* }  */}
       </div>
     </>
   );
