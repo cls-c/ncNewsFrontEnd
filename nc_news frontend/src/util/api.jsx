@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useContext } from "react";
 import { userContext } from "../contexts/userContext";
+import { useSearchParams } from "react-router-dom";
 
 
 const ncMarketPlace = axios.create({
   baseURL: "https://clsc-nc-news.onrender.com/api",
 });
 
-export const fetchArticles = (topic,sortBy,OrderBy) => {
+export const FetchArticles = (topic,sortBy,OrderBy) => {
   return ncMarketPlace.get(`/articles`,
   {
     params:{
