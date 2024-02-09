@@ -6,18 +6,17 @@ import { userContext } from "../contexts/userContext";
 import { fetchArticles } from "../util/api";
 import ArticleCard from "../Components/Article";
 import LoadingSpinner from "../Components/LoadingSpinner";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function FilteredArticleFeed() {
   const [articleFeed, setArticleFeed] = useState([]);
   const { isLoading, setIsLoading } = useContext(userContext);
   const { topic } = useParams();
+  const navigate = useNavigate();
 
   function fetchAndUpdateArticleFeed() {
     setIsLoading(true);
-    console.log(topic,"<--topic")
     return fetchArticles(topic).then(({ data: { article } }) => {
-      console.log(article)
       setArticleFeed(article);
       setIsLoading(false);
     });
